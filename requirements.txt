@@ -1,0 +1,8 @@
+pypdf
+sentence-transformers
+langchain
+psycopg2
+pgvector
+streamlit
+numpy
+openai
