@@ -24,6 +24,7 @@ def create_table():
         CREATE TABLE IF NOT EXISTS pdf_embeddings (
             id SERIAL PRIMARY KEY,
             document_name TEXT,
+            chunk_id INTEGER,
             text TEXT,
             embedding vector(384)
         );
@@ -31,14 +32,17 @@ def create_table():
     conn.commit()
     cur.close()
     conn.close()
+    # print("Connection build.")
 
 #Storing embedding
-def store_embedding(doc_name, text, embedding):
+def store_embedding(doc_name, chunk_id, text, embedding):
     """Store document embeddings in PostgreSQL."""
     conn = connect_db()
     cur = conn.cursor()
-    cur.execute("INSERT INTO pdf_embeddings (document_name, text, embedding) VALUES (%s, %s, %s)",
-                (doc_name, text, np.array(embedding).tolist()))
+
+    formatted_text = text.replace("\n", " ").strip()
+    cur.execute("INSERT INTO pdf_embeddings (document_name, chunk_id, text, embedding) VALUES (%s, %s, %s, %s)",
+                (doc_name, chunk_id, formatted_text, np.array(embedding).tolist()))
     conn.commit()
     cur.close()
     conn.close()
