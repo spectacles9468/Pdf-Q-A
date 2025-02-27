@@ -19,7 +19,7 @@ Libraries Used: PyPDF, SentenceTransformers, psycopg2, Streamlit, LangChain
 
 ## Setup
 1. Install python dependencies (requirements.txt)
-2. Setup PostgreSQL and [PgVector](https://www.youtube.com/watch?v=YoQZRKjgBkU)
+2. Set up PostgreSQL and PgVector.
 3. Edit configurations in database.py and run the file to create the database
 4. Run the application
 ```streamlit run app.py```
