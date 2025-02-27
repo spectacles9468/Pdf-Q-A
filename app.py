@@ -27,4 +27,4 @@ if uploaded_file:
 user_query = st.text_input("Ask a question:")
 if user_query:
     answer = query_database(user_query)
-    st.write("Answer:", answer)
+    st.text_area("Answer:", value=answer, height=300, max_chars=None)
