@@ -17,7 +17,6 @@ def connect_db():
 
 #Creating tables
 def create_table():
-    """Create table if it doesn't exist."""
     conn = connect_db()
     cur = conn.cursor()
     cur.execute("""
