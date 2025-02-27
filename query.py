@@ -7,11 +7,14 @@ def query_database(user_query):
     user_embedding = generate_embeddings(user_query)
     conn = connect_db()
     cur = conn.cursor()
+
+    user_embedding_str = "[" + ",".join(map(str, user_embedding)) + "]"
+    
     cur.execute("""
         SELECT text FROM pdf_embeddings
-        ORDER BY embedding <-> %s
+        ORDER BY embedding <=> %s::vector
         LIMIT 1;
-        """, (np.array(user_embedding).tolist(),))
+        """, (user_embedding_str,))
     result = cur.fetchone()
     cur.close()
     conn.close()
