@@ -41,12 +41,12 @@ def query_database(user_query):
     cur.execute("""
         SELECT text FROM pdf_embeddings
         ORDER BY embedding <=> %s::vector
-        LIMIT 1;
+        LIMIT 5;
         """, (user_embedding_str,))
-    result = cur.fetchone()
+    result = cur.fetchall()
     cur.close()
     conn.close()
-    return result[0] if result else "No relevant answer found."
+    return result[0][0] if result else "No relevant answer found."
     # Extract the text from the database query results
     # retrieved_texts = [row[0] for row in result]
 
